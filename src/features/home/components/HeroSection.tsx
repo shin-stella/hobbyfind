@@ -31,7 +31,7 @@ const heroStats = [
     iconClassName: 'text-secondary',
   },
   {
-    label: '무한대의 가능성',
+    label: '가능성',
     value: '∞',
     icon: Infinity,
     iconClassName: 'text-accent',
@@ -103,7 +103,7 @@ export function HeroSection() {
           className="mx-auto max-w-2xl text-[0.9rem] leading-[1.575rem] text-textMuted md:text-[1.0125rem] md:leading-[1.8rem]"
         >
           바쁜 일상 속 잊고 있던 작은 설렘을 다시 만나보세요.<br/>
-          운동·지능·예술, 마음이 이끄는 취미를 발견하고 북마크하여 관리할 수 있습니다.
+          마음이 이끄는 취미를 발견하고 북마크하여 관리할 수 있습니다.
         </motion.p>
 
         <motion.div
