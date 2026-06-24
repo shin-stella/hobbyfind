@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { Menu } from 'lucide-react';
 import { useState } from 'react';
 
@@ -14,6 +13,7 @@ import {
 } from '@/components/ui/sheet';
 import { AuthMenu } from '@/features/layout/components/AuthMenu';
 import { CategoryMenu } from '@/features/layout/components/CategoryMenu';
+import { HobbyFindLogo } from '@/features/layout/components/HobbyFindLogo';
 
 export function TopBar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -23,12 +23,7 @@ export function TopBar() {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-bg shadow-sm">
       <div className="container flex h-16 items-center justify-between gap-4">
-        <Link
-          href="/"
-          className="text-xl font-bold tracking-tight text-primary transition-opacity hover:opacity-90"
-        >
-          HobbyFind
-        </Link>
+        <HobbyFindLogo />
 
         <div className="hidden items-center gap-6 md:flex">
           <CategoryMenu />

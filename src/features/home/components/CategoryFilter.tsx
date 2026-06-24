@@ -43,7 +43,9 @@ export function CategoryFilter({
             onClick={() => onChange(option.value)}
             className={cn(
               'rounded-full px-4 transition-colors duration-150',
-              isActive && 'bg-primary text-white hover:bg-primary/90',
+              isActive
+                ? 'bg-primary text-white hover:bg-primary/90'
+                : 'hover:bg-primary/10 hover:text-primary',
             )}
           >
             {option.label}

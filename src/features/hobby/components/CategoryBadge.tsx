@@ -14,6 +14,12 @@ const CATEGORY_BADGE_VARIANTS: Record<
   art: 'outline',
 };
 
+const CATEGORY_BADGE_CLASSNAMES: Record<HobbyCategory, string> = {
+  sports: '',
+  intelligence: '',
+  art: 'border-border bg-white text-foreground hover:bg-white',
+};
+
 interface CategoryBadgeProps {
   category: HobbyCategory;
   className?: string;
@@ -23,7 +29,7 @@ export function CategoryBadge({ category, className }: CategoryBadgeProps) {
   return (
     <Badge
       variant={CATEGORY_BADGE_VARIANTS[category]}
-      className={cn(className)}
+      className={cn(CATEGORY_BADGE_CLASSNAMES[category], className)}
     >
       {CATEGORY_LABELS[category]}
     </Badge>

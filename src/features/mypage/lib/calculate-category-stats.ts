@@ -15,7 +15,7 @@ export interface CategoryStat {
 export const CATEGORY_CHART_COLORS: Record<HobbyCategory, string> = {
   sports: '#FF385C',
   intelligence: '#00A699',
-  art: '#007A87',
+  art: '#707070',
 };
 
 export function calculateCategoryStats(hobbies: Hobby[]): CategoryStat[] {

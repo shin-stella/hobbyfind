@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" suppressHydrationWarning>
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased tracking-tight">
         <Providers>
           <AuthProvider>
             {children}

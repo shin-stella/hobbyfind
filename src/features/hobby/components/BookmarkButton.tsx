@@ -1,62 +1,35 @@
 'use client';
 
 import { Heart } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
 
 import { Button } from '@/components/ui/button';
-import {
-  useIsBookmarked,
-  useToggleBookmarkMutation,
-} from '@/features/hobby/hooks/use-bookmarks';
-import { useToast } from '@/hooks/use-toast';
+import { useBookmarkToggle } from '@/features/hobby/hooks/use-bookmark-toggle';
 import { cn } from '@/lib/utils';
 
 interface BookmarkButtonProps {
   hobbyId: string;
   hobbyName: string;
   className?: string;
+  stopPropagation?: boolean;
 }
 
 export function BookmarkButton({
   hobbyId,
   hobbyName,
   className,
+  stopPropagation = false,
 }: BookmarkButtonProps) {
-  const router = useRouter();
-  const { toast } = useToast();
-  const { data: session } = useSession();
-  const isAuthenticated = Boolean(session?.user);
-  const isBookmarked = useIsBookmarked(hobbyId, isAuthenticated);
-  const toggleBookmarkMutation = useToggleBookmarkMutation();
+  const { isBookmarked, isPending, toggleBookmark } = useBookmarkToggle(
+    hobbyId,
+    hobbyName,
+  );
 
-  const handleClick = () => {
-    if (!session?.user) {
-      router.push('/login');
-      return;
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (stopPropagation) {
+      event.stopPropagation();
     }
 
-    toggleBookmarkMutation.mutate(
-      { hobbyId, isBookmarked },
-      {
-        onSuccess: ({ isAdded }) => {
-          toast({
-            description: isAdded
-              ? `${hobbyName} 북마크 저장됨`
-              : `${hobbyName} 북마크 해제됨`,
-          });
-        },
-        onError: (error) => {
-          toast({
-            variant: 'destructive',
-            description:
-              error instanceof Error
-                ? error.message
-                : '북마크 처리에 실패했습니다.',
-          });
-        },
-      },
-    );
+    toggleBookmark();
   };
 
   return (
@@ -67,9 +40,9 @@ export function BookmarkButton({
       aria-pressed={isBookmarked}
       aria-label={isBookmarked ? '북마크 해제' : '북마크 저장'}
       onClick={handleClick}
-      disabled={toggleBookmarkMutation.isPending}
+      disabled={isPending}
       className={cn(
-        'rounded-full focus-visible:ring-primary',
+        'rounded-full bg-white/90 shadow-sm backdrop-blur-sm hover:bg-white focus-visible:ring-primary',
         isBookmarked && 'text-primary hover:text-primary',
         className,
       )}
