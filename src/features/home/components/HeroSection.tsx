@@ -126,7 +126,7 @@ export function HeroSection() {
               className="min-w-[160px] rounded-full px-8"
               asChild
             >
-              <Link href="/mypage">내 북마크 보기</Link>
+              <Link href="/mypage#bookmarks">내 북마크 보기</Link>
             </Button>
           ) : (
             <Button

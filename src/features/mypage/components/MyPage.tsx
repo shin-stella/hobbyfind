@@ -34,9 +34,22 @@ export function MyPage() {
 
   useEffect(() => {
     if (status === 'unauthenticated') {
-      router.replace('/login?callbackUrl=/mypage');
+      const hash =
+        typeof window !== 'undefined' ? window.location.hash : '';
+      router.replace(
+        `/login?callbackUrl=${encodeURIComponent(`/mypage${hash}`)}`,
+      );
     }
   }, [router, status]);
+
+  useEffect(() => {
+    if (isBookmarksLoading || window.location.hash !== '#bookmarks') {
+      return;
+    }
+
+    const bookmarksSection = document.getElementById('bookmarks');
+    bookmarksSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [isBookmarksLoading]);
 
   if (status === 'loading' || status === 'unauthenticated') {
     return null;
@@ -64,13 +77,15 @@ export function MyPage() {
         <section className="container py-10">
           <div className="space-y-12">
             <ProfileSection />
-            {isBookmarksLoading ? (
-              <p className="text-sm text-textMuted">
-                북마크 목록을 불러오는 중입니다...
-              </p>
-            ) : (
-              <BookmarkList hobbies={bookmarkedHobbies} />
-            )}
+            <div id="bookmarks" className="scroll-mt-20">
+              {isBookmarksLoading ? (
+                <p className="text-sm text-textMuted">
+                  북마크 목록을 불러오는 중입니다...
+                </p>
+              ) : (
+                <BookmarkList hobbies={bookmarkedHobbies} />
+              )}
+            </div>
             <CategoryStatsSection
               totalCount={totalCount}
               categoryStats={categoryStats}
